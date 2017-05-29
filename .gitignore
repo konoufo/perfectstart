@@ -24,13 +24,16 @@ build
 local.env
 
 # Django stuff:
-*.mo
+# *.mo
 *.pot
 
 # Eclipse
 .project
 .pydevproject
 .settings
+
+# Pycharm
+.idea/
 
 # Linux Editors
 *~

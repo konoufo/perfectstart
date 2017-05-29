@@ -1,0 +1,15 @@
+{% templatetag openblock %} extends "base.html" {% templatetag closeblock %}
+
+{% templatetag openblock %} load account_tags {% templatetag closeblock %}
+{% templatetag openblock %} load i18n {% templatetag closeblock %}
+{% templatetag openblock %} load bootstrap {% templatetag closeblock %}
+
+{% templatetag openblock %} block head_title {% templatetag closeblock %}{% templatetag openblock %} trans "Signup" {% templatetag closeblock %}{% templatetag openblock %} endblock {% templatetag closeblock %}
+{% templatetag openblock %} block body_class {% templatetag closeblock %}transparent-home colored-nav{% templatetag openblock %} endblock {% templatetag closeblock %}
+{% templatetag openblock %} block body {% templatetag closeblock %}
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            {% templatetag openblock %} include "registration.html" {% templatetag closeblock %}
+        </div>
+    </div>
+{% templatetag openblock %} endblock {% templatetag closeblock %}

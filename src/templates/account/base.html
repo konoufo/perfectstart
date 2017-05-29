@@ -1,0 +1,27 @@
+{% templatetag openblock %} extends "theme_bootstrap/subnav_base.html" {% templatetag closeblock %}
+
+{% templatetag openblock %} load i18n {% templatetag closeblock %}
+
+{% templatetag openblock %} block body_class {% templatetag closeblock %}account transparent-home colored-nav{% templatetag openblock %} endblock {% templatetag closeblock %}
+
+{% templatetag openblock %} block subnav {% templatetag closeblock %}
+<div class="panel panel-default">
+    <div class="panel-heading"><strong>{% templatetag openblock %} trans "Settings" {% templatetag closeblock %}</strong></div>
+    <div class="list-group">
+        <a class="list-group-item account-settings" href="{% templatetag openblock %} url "account_settings" {% templatetag closeblock %}">
+            {% templatetag openblock %} trans "Account" {% templatetag closeblock %}
+        </a>
+        <a class="list-group-item account-password" href="{% templatetag openblock %} url "account_password" {% templatetag closeblock %}">
+            {% templatetag openblock %} trans "Change password" {% templatetag closeblock %}
+        </a>
+        {% templatetag openblock %} comment {% templatetag closeblock %}
+        <a class="list-group-item account-social" href="{% templatetag openblock %} url "account_social_accounts" {% templatetag closeblock %}">
+            {% templatetag openblock %} trans "Social accounts" {% templatetag closeblock %}
+        </a>
+        {% templatetag openblock %} endcomment {% templatetag closeblock %}
+        <a class="list-group-item account-delete" href="{% templatetag openblock %} url "account_delete" {% templatetag closeblock %}">
+            {% templatetag openblock %} trans "Delete account" {% templatetag closeblock %}
+        </a>
+    </div>
+</div>
+{% templatetag openblock %} endblock {% templatetag closeblock %}

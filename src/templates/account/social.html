@@ -1,0 +1,31 @@
+{% templatetag openblock %} extends "account/base.html" {% templatetag closeblock %}
+
+{% templatetag openblock %} load i18n {% templatetag closeblock %}
+{% templatetag openblock %} load bootstrap {% templatetag closeblock %}
+{% templatetag openblock %} load social_tags {% templatetag closeblock %}
+
+{% templatetag openblock %} block body_class {% templatetag closeblock %}account account-social{% templatetag openblock %} endblock {% templatetag closeblock %}
+
+{% templatetag openblock %} block head_title {% templatetag closeblock %}{% templatetag openblock %} trans "Social Accounts" {% templatetag closeblock %}{% templatetag openblock %} endblock {% templatetag closeblock %}
+
+{% templatetag openblock %} block body {% templatetag closeblock %}
+    <div class="row">
+        <div class="col-md-5">
+            <h3 class="legend">Social Connections</h3>
+            {% templatetag openblock %} for provider in backends.not_associated {% templatetag closeblock %}
+                <a class="btn btn-primary" href="{% templatetag openblock %} url "social:begin" provider {% templatetag closeblock %}">Connect <i class="fa fa-{% templatetag openvariable %} provider {% templatetag closevariable %}"></i> {% templatetag openvariable %} provider.title {% templatetag closevariable %}</a>
+            {% templatetag openblock %} endfor {% templatetag closeblock %}
+            {% templatetag openblock %} for auth in backends.associated {% templatetag closeblock %}
+                {% templatetag openblock %} user_can_disconnect auth as can_disconnect {% templatetag closeblock %}
+                {% templatetag openblock %} if can_disconnect {% templatetag closeblock %}
+                    <form method="post" action="{% templatetag openblock %} url "social:disconnect" auth.provider {% templatetag closeblock %}">
+                        {% templatetag openblock %} csrf_token {% templatetag closeblock %}
+                        <button class="btn btn-danger">Disconnect <i class="fa fa-{% templatetag openvariable %} auth.provider {% templatetag closevariable %}"></i> {% templatetag openvariable %} auth.provider.title {% templatetag closevariable %}</button>
+                    </form>
+                {% templatetag openblock %} else {% templatetag closeblock %}
+                    <p class="lead">You must set a valid password before you can disconnect.</p>
+                {% templatetag openblock %} endif {% templatetag closeblock %}
+            {% templatetag openblock %} endfor {% templatetag closeblock %}
+        </div>
+    </div>
+{% templatetag openblock %} endblock {% templatetag closeblock %}

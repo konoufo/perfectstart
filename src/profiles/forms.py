@@ -4,9 +4,23 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, Submit, HTML, Button, Row, Field
 from crispy_forms.bootstrap import AppendedText, PrependedText, FormActions
 from django.contrib.auth import get_user_model
+
+import account.forms
 from . import models
 
 User = get_user_model()
+
+
+class LoginForm(account.forms.LoginEmailForm):
+    pass
+
+
+class SignupForm(account.forms.SignupForm):
+    email = forms.EmailField()
+
+    def __init__(self, *args, **kwargs):
+        super(SignupForm, self).__init__(*args, **kwargs)
+        del self.fields['username']
 
 
 class UserForm(forms.ModelForm):

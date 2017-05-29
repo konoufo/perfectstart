@@ -8,10 +8,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
 from django.core.urlresolvers import reverse_lazy
-from os.path import dirname, join, exists
+from os.path import abspath,dirname, join, exists
 
 # Build paths inside the project like this: join(BASE_DIR, "directory")
-BASE_DIR = dirname(dirname(dirname(__file__)))
+BASE_DIR = abspath(dirname(dirname(dirname(__file__))))
+PROJECT_DIR = abspath(dirname(BASE_DIR))
+STATIC_ROOT = join(BASE_DIR, 'staticroot')
 STATICFILES_DIRS = [join(BASE_DIR, 'static')]
 MEDIA_ROOT = join(BASE_DIR, 'media')
 MEDIA_URL = "/media/"
@@ -35,7 +37,11 @@ TEMPLATES = [
                 'django.template.context_processors.media',
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
-                'django.contrib.messages.context_processors.messages',
+                "django.template.context_processors.request",
+                "django.contrib.messages.context_processors.messages",
+                "account.context_processors.account",
+                "{{project_name}}.context_processors.business",
+                "{{project_name}}.context_processors.theme",
             ],
         },
     },
@@ -45,9 +51,9 @@ TEMPLATES = [
 import environ
 env = environ.Env()
 
-# Ideally move env file should be outside the git repo
+# Ideally env file should be outside the git repo
 # i.e. BASE_DIR.parent.parent
-env_file = join(dirname(__file__), 'local.env')
+env_file = join(PROJECT_DIR, 'local.env')
 if exists(env_file):
     environ.Env.read_env(str(env_file))
 
@@ -56,13 +62,17 @@ if exists(env_file):
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # Raises ImproperlyConfigured exception if SECRET_KEY not in os.environ
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = env('{{project_name|uppercase}}_SECRET_KEY') or env('SECRET_KEY')
+
+# Admins
+ADMINS = (('konoufo', 'konoufo1@gmail.com'),)
+MANAGERS = ADMINS
 
 ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     'django.contrib.auth',
     'django_admin_bootstrapped',
     'django.contrib.admin',
@@ -71,24 +81,29 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'authtools',
+    # third-party apps
+    'account',
     'crispy_forms',
     'easy_thumbnails',
 
+    # project
     'profiles',
-    'accounts',
 
-)
+]
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-)
+    '{{project_name}}.middleware.AjaxRedirectMiddleware',
+]
 
 ROOT_URLCONF = '{{ project_name }}.urls'
 
@@ -121,7 +136,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-ALLOWED_HOSTS = []
 
 # Crispy Form Theme - Bootstrap 3
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
@@ -133,8 +147,30 @@ MESSAGE_TAGS = {
 }
 
 # Authentication Settings
-AUTH_USER_MODEL = 'authtools.User'
-LOGIN_REDIRECT_URL = reverse_lazy("profiles:show_self")
-LOGIN_URL = reverse_lazy("accounts:login")
+# AUTH_USER_MODEL = 'authtools.User'
+ACCOUNT_OPEN_SIGNUP = True
+ACCOUNT_EMAIL_UNIQUE = True
+ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = False
+ACCOUNT_LOGIN_URL = "account_login"
+LOGIN_URL = "account_login"
+ACCOUNT_SIGNUP_REDIRECT_URL = ACCOUNT_LOGIN_REDIRECT_URL = LOGIN_REDIRECT_URL = "profiles:show_self"
+ACCOUNT_LOGOUT_REDIRECT_URL = "home"
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 2
+ACCOUNT_USE_AUTH_AUTHENTICATE = True
+
+AUTHENTICATION_BACKENDS = [
+    "social.backends.twitter.TwitterOAuth",
+    "account.auth_backends.EmailAuthenticationBackend",
+]
+
+SOCIAL_AUTH_TWITTER_KEY = ""
+SOCIAL_AUTH_TWITTER_SECRET = ""
+
+
+# Stripe API - Payment Aggregator
+# usage: stripe.api_key = STRIPE_API_KEY
+
+STRIPE_API_KEY = env('{{project_name|uppercase}}_STRIPE_API', '')
+
 
 THUMBNAIL_EXTENSION = 'png'     # Or any extn for your thumbnails

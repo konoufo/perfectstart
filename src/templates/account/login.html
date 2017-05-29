@@ -1,0 +1,52 @@
+{% templatetag openblock %} extends "base.html" {% templatetag closeblock %}
+
+{% templatetag openblock %} load account_tags {% templatetag closeblock %}
+{% templatetag openblock %} load i18n {% templatetag closeblock %}
+{% templatetag openblock %} load bootstrap {% templatetag closeblock %}
+
+{% templatetag openblock %} block head_title {% templatetag closeblock %}{% templatetag openblock %} trans "Log in" {% templatetag closeblock %}{% templatetag openblock %} endblock {% templatetag closeblock %}
+
+{% templatetag openblock %} block body_class {% templatetag closeblock %}transparent-home colored-nav{% templatetag openblock %} endblock {% templatetag closeblock %}
+{% templatetag openblock %} block body {% templatetag closeblock %}
+    <div class="row">
+        <div class="col-md-4">
+            <form method="POST" action="{% templatetag openblock %} url "account_login" {% templatetag closeblock %}" autocapitalize="off" {% templatetag openblock %} if form.is_multipart {% templatetag closeblock %} enctype="multipart/form-data"{% templatetag openblock %} endif {% templatetag closeblock %}>
+               {% templatetag openblock %} comment "Social login is still a nice-to-have" {% templatetag closeblock %}
+                <div class="text-center">
+                    <p>
+                        <a class="btn btn-primary btn-lg" href="{% templatetag openblock %} url "social:begin" "twitter" {% templatetag closeblock %}">Log in with <i class="fa fa-twitter"></i> Twitter</a>
+                    </p>
+                    <p class="lead" style="margin: 30px 0; font-style: italic;">or</p>
+                </div>
+                {% templatetag openblock %} endcomment {% templatetag closeblock %}
+                <legend>{% templatetag openblock %} trans "Log in to an existing account" {% templatetag closeblock %}</legend>
+                {% templatetag openblock %} csrf_token {% templatetag closeblock %}
+                {% templatetag openvariable %} form|bootstrap {% templatetag closevariable %}
+                {% templatetag openblock %} if redirect_field_value {% templatetag closeblock %}
+                    <input type="hidden" name="{% templatetag openvariable %} redirect_field_name {% templatetag closevariable %}" value="{% templatetag openvariable %} redirect_field_value {% templatetag closevariable %}" />
+                {% templatetag openblock %} endif {% templatetag closeblock %}
+                <button type="submit" class="btn btn-primary">{% templatetag openblock %} trans "Log in" {% templatetag closeblock %}</button>
+                {# <a href="{% templatetag openblock %} url "account_password_reset" {% templatetag closeblock %}" class="btn btn-link">{% templatetag openblock %} trans "Forgot your password?" {% templatetag closeblock %}</a> #}
+            </form>
+            {% templatetag openblock %} if ACCOUNT_OPEN_SIGNUP {% templatetag closeblock %}
+                <p class="login-signup">
+                    <small>
+                        {% templatetag openblock %} trans "Don't have an account?" {% templatetag closeblock %}  <strong><a href="{% templatetag openblock %} urlnext 'account_signup' {% templatetag closeblock %}">{% templatetag openblock %} trans "Sign up" {% templatetag closeblock %}</a></strong>
+                    </small>
+                </p>
+            {% templatetag openblock %} endif {% templatetag closeblock %}
+        </div>
+        <div class="col-md-4">
+            {% templatetag openblock %} include "account/_login_sidebar.html" {% templatetag closeblock %}
+        </div>
+    </div>
+{% templatetag openblock %} endblock {% templatetag closeblock %}
+
+{% templatetag openblock %} block scripts {% templatetag closeblock %}
+    {% templatetag openvariable %} block.super {% templatetag closevariable %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#id_username').focus();
+        });
+    </script>
+{% templatetag openblock %} endblock {% templatetag closeblock %}

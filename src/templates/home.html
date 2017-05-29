@@ -11,8 +11,8 @@
 
 {% templatetag openblock %} block navbar-right {% templatetag closeblock %}
   {% templatetag openblock %} if not user.is_authenticated {% templatetag closeblock %}
-<a class="btn btn-default" href="{% templatetag openblock %} url 'accounts:login' {% templatetag closeblock %}" role="button">Log in</a>
-<a class="btn btn-primary" href="{% templatetag openblock %} url 'accounts:signup' {% templatetag closeblock %}" role="button">Sign up</a>
+<a class="btn btn-default" href="{% templatetag openblock %} url 'accounts_login' {% templatetag closeblock %}" role="button">Log in</a>
+<a class="btn btn-primary" href="{% templatetag openblock %} url 'accounts_signup' {% templatetag closeblock %}" role="button">Sign up</a>
   {% templatetag openblock %} else {% templatetag closeblock %}
     {% templatetag openvariable %} block.super {% templatetag closevariable %}
   {% templatetag openblock %} endif {% templatetag closeblock %}
@@ -25,7 +25,7 @@
         <div class="col-md-8 col-sm-8">
           <h1>{% templatetag openblock %} include "_brandname.html" {% templatetag closeblock %}</h1>
           <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
-	  <a class="btn btn-primary" href="{% templatetag openblock %} url 'accounts:signup' {% templatetag closeblock %}" role="button">Sign up for Free!</a>
+	  <a class="btn btn-primary" href="{% templatetag openblock %} url 'accounts_signup' {% templatetag closeblock %}" role="button">Sign up for Free!</a>
         </div>
         <div class="col-md-4 col-sm-4">
 

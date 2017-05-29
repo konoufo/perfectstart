@@ -1,0 +1,12 @@
+{% templatetag openblock %} extends "base.html" {% templatetag closeblock %}
+
+{% templatetag openblock %} load i18n {% templatetag closeblock %}
+
+{% templatetag openblock %} block head_title {% templatetag closeblock %}{% templatetag openblock %} trans "Server Error" {% templatetag closeblock %}{% templatetag openblock %} endblock {% templatetag closeblock %}
+
+{% templatetag openblock %} block body {% templatetag closeblock %}
+    <header class="jumbotron subhead" id="overview">
+        <h1>{% templatetag openblock %} trans "Something went wrong" {% templatetag closeblock %}</h1>
+        <p class="lead">{% templatetag openblock %} trans "We're sorry but a server error has occurred. We've been notified and will look into it as soon as possible." {% templatetag closeblock %}</p>
+    </header>
+{% templatetag openblock %} endblock {% templatetag closeblock %}

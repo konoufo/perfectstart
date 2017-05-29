@@ -1,0 +1,20 @@
+{% templatetag openblock %} extends "bootswatch/components/dialog.html" {% templatetag closeblock %}
+{% templatetag openblock %} block dialog_attrs {% templatetag closeblock %}id="signupModal" {% templatetag openblock %} endblock {% templatetag closeblock %}
+{% templatetag openblock %} block title {% templatetag closeblock %}
+<!-- brand -->
+<span style="background-color:orange;display:inline-block;height:21px;margin-right:4px;width:21px;"></span>
+Airkiv
+{% templatetag openblock %} endblock {% templatetag closeblock %}
+
+{% templatetag openblock %} block title_class {% templatetag closeblock %} text-center {% templatetag openblock %} endblock {% templatetag closeblock %}
+
+{% templatetag openblock %} block body {% templatetag closeblock %}
+<div class="row">
+    <div class="col-md-12">
+        {% templatetag openblock %} include "registration.html" {% templatetag closeblock %}
+    </div>
+</div>
+{% templatetag openblock %} endblock {% templatetag closeblock %}
+{% templatetag openblock %} block actions {% templatetag closeblock %}
+    <button type="button" class="btn btn-primary form-submit" data-form="signup">Continuer</button>
+{% templatetag openblock %} endblock {% templatetag closeblock %}

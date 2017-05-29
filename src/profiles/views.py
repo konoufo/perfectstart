@@ -3,6 +3,8 @@ from django.views import generic
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+
+from account import views
 from . import forms
 from . import models
 
@@ -58,3 +60,20 @@ class EditProfile(LoginRequiredMixin, generic.TemplateView):
         profile.save()
         messages.success(request, "Profile details saved!")
         return redirect("profiles:show_self")
+
+
+class SignupView(views.SignupView):
+    form_class = forms.SignupForm
+
+    def generate_username(self, form):
+        return form.cleaned_data.get('email')
+
+    def after_signup(self, form):
+        self.create_profile(form)
+        super(SignupView, self).after_signup(form)
+
+    def create_profile(self, form):
+        profile = self.created_user.profile
+        profile.first_name = form.cleaned_data["first_name"]
+        profile.last_name = form.cleaned_data["last_name"]
+        profile.save()
