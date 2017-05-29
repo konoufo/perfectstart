@@ -1,10 +1,10 @@
 {% comment "This comment section will be deleted in the generated project" %}
 
-# [Edge][docs]
+# [Edge x Django-User-Accounts][docs]
 
 [![Build Status](https://travis-ci.org/arocks/edge.svg?branch=master)](https://travis-ci.org/arocks/edge)
 
-**A Fantastic Django project starter.**
+**Django project starter template for general purpose webapp.**
 
 ## Features
 
@@ -12,11 +12,12 @@
 * User Registration/Sign up
 * Better Security with [12-Factor](http://12factor.net/) recommendations 
 * Logging/Debugging Helpers
-* Works on Python 2.7 or 3.4
+* Works on Python 3.5
+* Works for Django 1.11
 
 ## Quick start:
 
-1. `$ django-admin.py startproject --template=https://github.com/arocks/edge/archive/master.zip --extension=py,md,html,env my_proj`
+1. `$ django-admin.py startproject --template=https://github.com/konoufo/edge/archive/master.zip --extension=py,md,html,env my_proj`
 2. `$ cd my_proj`
 3. `$ pip install -r requirements.txt `
 4. `$ cd src`
