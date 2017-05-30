@@ -57,7 +57,7 @@ env = environ.Env()
 
 # Ideally env file should be outside the git repo
 # i.e. BASE_DIR.parent.parent
-env_file = join(BASE_DIR, '{{project_name}}', 'settings' ,'local.env')
+env_file = join(dirname(PROJECT_DIR), 'local.env')
 if exists(env_file):
     print('Env File Detected')
     environ.Env.read_env(str(env_file))
