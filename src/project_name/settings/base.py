@@ -15,7 +15,7 @@ from django.core.urlresolvers import reverse_lazy as _r
 
 # Build paths inside the project like this: join(BASE_DIR, "directory")
 BASE_DIR = abspath(dirname(dirname(dirname(__file__))))
-PROJECT_DIR = abspath(dirname(BASE_DIR))
+PROJECT_DIR = dirname(BASE_DIR)
 STATIC_ROOT = join(BASE_DIR, 'staticroot')
 STATICFILES_DIRS = [join(BASE_DIR, 'static')]
 MEDIA_ROOT = join(BASE_DIR, 'mediaroot')
