@@ -7,7 +7,7 @@
     {% templatetag openblock %} if form {% templatetag closeblock %}
         <form id="signup" accept-charset="utf-8" action="{% templatetag openblock %} url 'account_signup' {% templatetag closeblock %}" method="POST"
             {% templatetag openblock %} if form.is_multipart {% templatetag closeblock %} enctype="multipart/form-data"{% templatetag openblock %} endif {% templatetag closeblock %} >
-            {{form|bootstrap}}
+            {% templatetag openvariable %} form|bootstrap {% templatetag closevariable %}
             {% templatetag openblock %} csrf_token {% templatetag closeblock %}
 
         </form>
