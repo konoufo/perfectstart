@@ -1,0 +1,15 @@
+{% templatetag openblock %} load bootstrap {% templatetag closeblock %}
+
+{% templatetag openblock %} if signup_success {% templatetag closeblock %}
+    <h3 class="text-center text-success">Inscription réussie !</h3>
+{% templatetag openblock %} else {% templatetag closeblock %}
+    <p><span class="text-danger">*</span>&nbsp;Veuillez compléter toutes les sections suivantes pour vous inscrire.</p>
+    {% templatetag openblock %} if form {% templatetag closeblock %}
+        <form id="signup" accept-charset="utf-8" action="{% templatetag openblock %} url 'account_signup' {% templatetag closeblock %}" method="POST"
+            {% templatetag openblock %} if form.is_multipart {% templatetag closeblock %} enctype="multipart/form-data"{% templatetag openblock %} endif {% templatetag closeblock %} >
+            {{form|bootstrap}}
+            {% templatetag openblock %} csrf_token {% templatetag closeblock %}
+
+        </form>
+    {% templatetag openblock %} endif {% templatetag closeblock %}
+{% templatetag openblock %} endif {% templatetag closeblock %}

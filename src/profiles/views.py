@@ -74,6 +74,6 @@ class SignupView(views.SignupView):
 
     def create_profile(self, form):
         profile = self.created_user.profile
-        profile.first_name = form.cleaned_data["first_name"]
-        profile.last_name = form.cleaned_data["last_name"]
+        profile.first_name = form.cleaned_data.get('first_name', None)
+        profile.last_name = form.cleaned_data.get('last_name', None)
         profile.save()

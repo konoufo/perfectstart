@@ -3,7 +3,7 @@
 {% templatetag openblock %} load i18n {% templatetag closeblock %}
 {% templatetag openblock %} load bootstrap {% templatetag closeblock %}
 
-{% templatetag openblock %} block body_class {% templatetag closeblock %}account account-settings transparent-home colored-nav{% templatetag openblock %} endblock {% templatetag closeblock %}
+{% templatetag openblock %} block body_class {% templatetag closeblock %}account account-settings {% templatetag openblock %} endblock {% templatetag closeblock %}
 
 {% templatetag openblock %} block head_title {% templatetag closeblock %}{% templatetag openblock %} trans "Account" {% templatetag closeblock %}{% templatetag openblock %} endblock {% templatetag closeblock %}
 
@@ -13,7 +13,7 @@
             <form method="POST" action="{% templatetag openblock %} url "account_settings" {% templatetag closeblock %}">
                 <legend>{% templatetag openblock %} trans "Account" {% templatetag closeblock %}</legend>
                 {% templatetag openblock %} csrf_token {% templatetag closeblock %}
-                {{ form|bootstrap }}
+                {% templatetag openvariable %} form|bootstrap {% templatetag closevariable %}
                 <button class="btn btn-primary" type="submit">{% templatetag openblock %} trans "Save" {% templatetag closeblock %}</button>
             </form>
         </div>

@@ -71,7 +71,7 @@
 
                     <ul class="dropdown-menu" role="menu">
                       <li><a href="{% templatetag openblock %} url 'profiles:show_self' {% templatetag closeblock %}">Profile</a></li>
-                      <li><a href="{% templatetag openblock %} url 'accounts:logout' {% templatetag closeblock %}">Logout</a></li>
+                      <li><a href="{% templatetag openblock %} url 'account_logout' {% templatetag closeblock %}">Logout</a></li>
                     </ul>
                   </li>
                 {% templatetag openblock %} endif {% templatetag closeblock %}
@@ -99,12 +99,12 @@
 
           {% templatetag openblock %} block container {% templatetag closeblock %}
           <div class="container">
-            {% templatetag openblock %} block body {% templatetag endblock %}
+            {% templatetag openblock %} block body {% templatetag closeblock %}
             <div class="starter-template">
               <h1>New Project</h1>
               <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
             </div>
-            {% templatetag openblock %} endblock body {% templatetag endblock %}
+            {% templatetag openblock %} endblock body {% templatetag closeblock %}
           </div><!-- /.container -->
           {% templatetag openblock %} endblock container {% templatetag closeblock %}
       {% templatetag openblock %} endblock body_base {% templatetag closeblock %}
@@ -117,7 +117,7 @@
               <div class="footer">
                   <div class="row">
                     <div class="col-lg-6">
-                        <p>&copy; {% templatetag openblock %} include '_brandname.html' {% templatetag openblock %} {% templatetag openblock %} now 'Y' {% templatetag closeblock %}</p>
+                        <p>&copy; {% templatetag openblock %} include '_brandname.html' {% templatetag closeblock %} {% templatetag openblock %} now 'Y' {% templatetag closeblock %}</p>
                     </div>
                     <div class="col-lg-6 text-right">
                       Connect with us on

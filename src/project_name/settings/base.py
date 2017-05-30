@@ -7,16 +7,20 @@ https://docs.djangoproject.com/en/dev/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
-from django.core.urlresolvers import reverse_lazy
 from os.path import abspath,dirname, join, exists
+
+from django.utils.translation import ugettext_lazy as _
+from django.core.urlresolvers import reverse_lazy as _r
+
 
 # Build paths inside the project like this: join(BASE_DIR, "directory")
 BASE_DIR = abspath(dirname(dirname(dirname(__file__))))
 PROJECT_DIR = abspath(dirname(BASE_DIR))
 STATIC_ROOT = join(BASE_DIR, 'staticroot')
 STATICFILES_DIRS = [join(BASE_DIR, 'static')]
-MEDIA_ROOT = join(BASE_DIR, 'media')
+MEDIA_ROOT = join(BASE_DIR, 'mediaroot')
 MEDIA_URL = "/media/"
+
 
 # Use Django templates using the new Django 1.8 TEMPLATES settings
 TEMPLATES = [
@@ -47,6 +51,7 @@ TEMPLATES = [
     },
 ]
 
+
 # Use 12factor inspired environment variables or from a file
 import environ
 env = environ.Env()
@@ -62,7 +67,7 @@ if exists(env_file):
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # Raises ImproperlyConfigured exception if SECRET_KEY not in os.environ
-SECRET_KEY = env('{{project_name|uppercase}}_SECRET_KEY') or env('SECRET_KEY')
+SECRET_KEY = env('{{project_name|upper}}_SECRET_KEY', default=env('SECRET_KEY'))
 
 # Admins
 ADMINS = (('konoufo', 'konoufo1@gmail.com'),)
@@ -74,6 +79,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.auth',
+    'django.contrib.sites',
     'django_admin_bootstrapped',
     'django.contrib.admin',
     'django.contrib.contenttypes',
@@ -83,8 +89,10 @@ INSTALLED_APPS = [
 
     # third-party apps
     'account',
+    'authtools',
     'crispy_forms',
     'easy_thumbnails',
+    'bootstrapform',
 
     # project
     'profiles',
@@ -118,10 +126,21 @@ DATABASES = {
     'default': env.db(),
 }
 
+SITE_ID = 1
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/dev/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
+
+
+LOCALE_PATHS = (join(BASE_DIR, 'locale'), )
+
+LANGUAGES = (
+    ('fr', _('French')),
+    ('en', _('English')),
+)
 
 TIME_ZONE = 'UTC'
 
@@ -130,6 +149,7 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
@@ -147,14 +167,14 @@ MESSAGE_TAGS = {
 }
 
 # Authentication Settings
-# AUTH_USER_MODEL = 'authtools.User'
+AUTH_USER_MODEL = 'authtools.User'
 ACCOUNT_OPEN_SIGNUP = True
 ACCOUNT_EMAIL_UNIQUE = True
 ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = False
-ACCOUNT_LOGIN_URL = "account_login"
-LOGIN_URL = "account_login"
-ACCOUNT_SIGNUP_REDIRECT_URL = ACCOUNT_LOGIN_REDIRECT_URL = LOGIN_REDIRECT_URL = "profiles:show_self"
-ACCOUNT_LOGOUT_REDIRECT_URL = "home"
+ACCOUNT_LOGIN_URL = _r("account_login")
+LOGIN_URL = _r("account_login")
+ACCOUNT_SIGNUP_REDIRECT_URL = ACCOUNT_LOGIN_REDIRECT_URL = LOGIN_REDIRECT_URL = _r("profiles:show_self")
+ACCOUNT_LOGOUT_REDIRECT_URL = _r("home")
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 2
 ACCOUNT_USE_AUTH_AUTHENTICATE = True
 
@@ -170,7 +190,7 @@ SOCIAL_AUTH_TWITTER_SECRET = ""
 # Stripe API - Payment Aggregator
 # usage: stripe.api_key = STRIPE_API_KEY
 
-STRIPE_API_KEY = env('{{project_name|uppercase}}_STRIPE_API', '')
+STRIPE_API_KEY = env('{{project_name|upper}}_STRIPE_API', default='')
 
 
 THUMBNAIL_EXTENSION = 'png'     # Or any extn for your thumbnails
