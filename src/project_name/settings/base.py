@@ -7,14 +7,14 @@ https://docs.djangoproject.com/en/dev/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
-from os.path import abspath,dirname, join, exists
+from os.path import abspath, dirname, join, exists
 
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse_lazy as _r
 
 
 # Build paths inside the project like this: join(BASE_DIR, "directory")
-BASE_DIR = abspath(dirname(dirname(dirname(__file__))))
+BASE_DIR = dirname(dirname(dirname(__file__)))
 PROJECT_DIR = dirname(BASE_DIR)
 STATIC_ROOT = join(BASE_DIR, 'staticroot')
 STATICFILES_DIRS = [join(BASE_DIR, 'static')]
@@ -58,7 +58,7 @@ env = environ.Env()
 
 # Ideally env file should be outside the git repo
 # i.e. BASE_DIR.parent.parent
-env_file = join(dirname(__file__), 'local.env')
+env_file = abspath(join(PROJECT_DIR, 'local.env'))
 if exists(env_file):
     print('Env File Detected')
     environ.Env.read_env(str(env_file))
