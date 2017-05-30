@@ -60,6 +60,7 @@ env = environ.Env()
 # i.e. BASE_DIR.parent.parent
 env_file = join(PROJECT_DIR, 'local.env')
 if exists(env_file):
+    print('Env File Detected')
     environ.Env.read_env(str(env_file))
 
 
