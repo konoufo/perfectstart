@@ -14,8 +14,10 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse_lazy as _r
 
 
-# Build paths inside the project like this: join(BASE_DIR, "directory")
+# Build paths inside the Django project like this: join(BASE_DIR, "directory_or_file")
+# `BASE_DIR` is taken as the `src` folder that lives at the root.
 BASE_DIR = dirname(dirname(dirname(abspath(__file__))))
+# `PROJECT_DIR` is the root of the repository.
 PROJECT_DIR = dirname(BASE_DIR)
 STATIC_ROOT = join(BASE_DIR, 'staticroot')
 STATICFILES_DIRS = [join(BASE_DIR, 'static')]
@@ -155,7 +157,7 @@ STATIC_URL = '/static/'
 
 WEBPACK_LOADER = {
     'DEFAULT': {
-        'STATS_FILE': join(BASE_DIR, 'webpack-stats.json')
+        'STATS_FILE': join(PROJECT_DIR, 'webpack-stats.json')
     }
 }
 
