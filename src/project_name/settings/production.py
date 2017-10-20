@@ -24,6 +24,12 @@ TEMPLATES[0].update({"APP_DIRS": False})
 # Define STATIC_ROOT for the collectstatic command
 STATIC_ROOT = join(BASE_DIR, 'staticroot')
 
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'STATS_FILE': join(BASE_DIR, 'webpack-prod-stats.json')
+    }
+}
+
 # Log everything to the logs directory at the top
 LOGFILE_ROOT = join(dirname(BASE_DIR), 'logs')
 

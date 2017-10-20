@@ -60,3 +60,6 @@ Desktop.ini
 
 # Project settings
 ./site/
+
+# Development builds
+**bundles/dev/

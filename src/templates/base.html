@@ -2,6 +2,7 @@
 <html lang="en">
     {% templatetag openblock %} load staticfiles {% templatetag closeblock %}
     {% templatetag openblock %} load thumbnail {% templatetag closeblock %}
+    {% templatetag openblock %} load render_bundle from webpack_loader {% templatetag closeblock %}
     
   <head>
     <meta charset="utf-8">
@@ -13,12 +14,17 @@
 
     <title>{% templatetag openblock %} block title {% templatetag closeblock %}{% templatetag openblock %} include "_brandname.html" {% templatetag closeblock %} :: {% templatetag openblock %} endblock {% templatetag closeblock %}</title>
 
+    {% templatetag openblock %} render_bundle 'zero' 'css' {% templatetag closeblock %}
+
+    {% comment %}
     <!-- Bootstrap core CSS -->
     <link href="{% templatetag openblock %} static 'bootstrap/css/bootstrap.min.css' {% templatetag closeblock %}" rel="stylesheet">
-
+    {% endcomment %}
     <!-- Custom styles for this site -->
     {% templatetag openblock %} block styles {% templatetag closeblock %}
-    <link href="{% templatetag openblock %} static 'site/css/main.css' {% templatetag closeblock %}" rel="stylesheet">
+      {% comment %}
+        <link href="{% templatetag openblock %} static 'site/css/main.css' {% templatetag closeblock %}" rel="stylesheet">
+      {% endcomment %}
     {% templatetag openblock %} endblock styles {% templatetag closeblock %}
 
     <!-- Custom tags for the head tag -->
@@ -133,7 +139,10 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    {% comment %}
     <script src="{% templatetag openblock %} static 'bootstrap/js/bootstrap.min.js' {% templatetag closeblock %}"></script>
+    {% endcomment %}
+    {% templatetag openblock %} render_bundle 'zero' 'js' {% templatetag closeblock %}
     {% templatetag openblock %} block scripts {% templatetag closeblock %}
     {% templatetag openblock %} endblock scripts {% templatetag closeblock %}
   </body>

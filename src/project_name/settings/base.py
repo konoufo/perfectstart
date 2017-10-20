@@ -8,6 +8,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
 from os.path import abspath, dirname, join, exists
+import json
 
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse_lazy as _r
@@ -56,13 +57,15 @@ import environ
 env = environ.Env()
 
 # Ideally env file should be outside the git repo
-# i.e. BASE_DIR.parent.parent
-env_file = join(dirname(PROJECT_DIR), 'local.env')
-if exists(env_file):
-    print('Env File Detected')
-    environ.Env.read_env(str(env_file))
-else:
-    print('No Env File')
+# i.e. PROJECT_DIR.parent
+env_files = [join(dirname(PROJECT_DIR), 'local.env'), join(PROJECT_DIR, 'local.env')]
+for env_file in env_files:
+	if exists(env_file):
+		print('Env File Detected')
+		environ.Env.read_env(str(env_file))
+		break
+	else:
+		print('No Env File')
 
 
 # Quick-start development settings - unsuitable for production
@@ -89,18 +92,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    # third-party apps
-    'account',
-    'authtools',
-    'crispy_forms',
-    'easy_thumbnails',
-    'bootstrapform',
-
-    # project
-    'profiles',
-
 ]
+with open(join(PROJECT_DIR, 'config.json'), 'r') as f:
+	INSTALLED_APPS += json.loads(f.read()).get('django_apps', [])
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -159,6 +153,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'STATS_FILE': join(BASE_DIR, 'webpack-stats.json')
+    }
+}
 
 # Crispy Form Theme - Bootstrap 3
 CRISPY_TEMPLATE_PACK = 'bootstrap3'

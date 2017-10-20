@@ -1,28 +1,29 @@
 {% comment "This comment section will be deleted in the generated project" %}
 
-# [Edge x Django-User-Accounts][docs]
+# [django-perfect-start][docs]
 
-[![Build Status](https://travis-ci.org/arocks/edge.svg?branch=master)](https://travis-ci.org/arocks/edge)
+[![Build Status](https://travis-ci.org/konoufo/edge.svg?branch=master)](https://travis-ci.org/konoufo/edge)
 
 **Django project starter template for general purpose webapp.**
 
 ## Features
 
 * Ready Bootstrap-themed pages
-* User Registration/Sign up
+* User Accounts made easy
 * Better Security with [12-Factor](http://12factor.net/) recommendations 
 * Logging/Debugging Helpers
-* Works on Python 3.5
-* Works for Django 1.11
+* Python 3.5 / Django 1.11
+* Webpack 2.0, best/easiest assets management for your project (with configurations for both development and production)
 
 ## Quick start:
 
 1. `$ django-admin.py startproject --template=https://github.com/konoufo/edge/archive/master.zip --extension=py,md,html,env my_proj`
 2. `$ cd my_proj`
 3. `$ pip install -r requirements.txt `
-4. `$ cd src`
-5. `$ cp my_proj/settings/local.sample.env my_proj/settings/local.env` (New!)
-6. `$ python manage.py migrate`
+4. `$ npm i`
+5. `$ cp src/my_proj/settings/local.sample.env local.env`
+6. `$ cd src`
+7. `$ python manage.py migrate`
 
 More information at: [http://django-edge.readthedocs.org/][docs]
 
@@ -58,6 +59,7 @@ comes with virtualenv built-in. So create a virtual env by:
 Install all dependencies:
 
     pip install -r requirements.txt
+    npm i
 
 Run migrations:
 
