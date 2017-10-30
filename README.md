@@ -2,7 +2,7 @@
 
 # [django-perfect-start][docs]
 
-[![Build Status](https://travis-ci.org/konoufo/edge.svg?branch=master)](https://travis-ci.org/konoufo/edge)
+[![Build Status](https://travis-ci.org/konoufo/perfectstart.svg?branch=master)](https://travis-ci.org/konoufo/perfectstart)
 
 **Django project starter template for general purpose webapp.**
 
